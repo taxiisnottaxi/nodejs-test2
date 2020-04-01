@@ -1,0 +1,59 @@
+<title>首页</title>
+<link rel="stylesheet" href="/style.css">
+<h5>您 的 账 户 余 额 是 <span id="amount">&&&amount&&&</span></h5>
+<button id="button">打钱</button>
+
+<!-- 此处由于没有给jQuery做路由，所以访问不到，所谓路由就是给一个if else -->
+<!-- <script src='./node_modules/jquery/dist/jquery.min.js'></script> -->
+
+<script src='https://cdnjs.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+<script>
+    button.addEventListener('click', (e)=>{
+
+        $.ajax({
+            url: "http://jack.com:8002/pay",
+            dataType: "jsonp",
+            success: function(response){
+                if(response === 'success'){
+                    amount.innerText = amount.innerText - 1
+                }
+            }
+        })
+
+    })
+</script>
+
+
+
+
+
+
+
+
+
+<!-- 原生写法 -->
+<!-- <script>
+    button.addEventListener('click', (e)=>{
+        let script = document.createElement('script')
+        // 实现名称+随机数，random返回的是小数，我们将其改装成整数
+        let functionName = 'frank'+parseInt(Math.random()*10000, 10)
+        // 将随机名称绑定成函数
+        window[functionName] = function(result){
+            if(result === 'success'){
+                amount.innerText = amount.innerText - 1
+            }else{}
+        }
+        script.src = 'http://jack.com:8002/pay?callback=' + functionName
+        document.body.appendChild(script)
+        script.onload = function(e){
+            e.currentTarget.remove()    // 从页面中移除元素
+            delete window[functionName]    // 删除函数
+        }
+        script.onerror = function(e){
+            e.currentTarget.remove()
+            alert('fail')
+            delete window[functionName]
+        }
+    })
+</script> -->
